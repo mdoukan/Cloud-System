@@ -4,16 +4,16 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Load environment variables
+
 dotenv.config();
 
 const app = express();
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
+
 console.log('Attempting to connect to MongoDB with URI:', process.env.MONGODB_URI ? 'URI exists' : 'URI is missing');
 mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
@@ -56,7 +56,7 @@ mongoose.connect(process.env.MONGODB_URI)
             price: 59.99,
             rating: 4.9
           }
-          // Gerekirse daha fazla oyun ekle
+          
         ];
         await Game.insertMany(sampleGames);
         console.log(`${sampleGames.length} sample games seeded successfully.`);
@@ -80,25 +80,25 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
-// Routes
+
 const gameRoutes = require('./routes/gameRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
 
-// Basic test route
+
 app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to Game Distribution Service API' });
 });
 
-// Error handler
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// ✅ Serve React frontend (only in production)
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')));
 
@@ -107,7 +107,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Start server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

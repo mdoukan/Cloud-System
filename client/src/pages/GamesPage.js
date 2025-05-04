@@ -4,12 +4,12 @@ import { FaStar, FaCalendarAlt, FaDollarSign, FaClock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { getAllGames } from '../services/api';
 
-// Translation mapping for existing Turkish descriptions
+
 const descriptionTranslations = {
   'Yeraltı dünyasından kaçış.': 'Escape from the underworld.',
   'Yaratıcılığın sınır tanımadığı dünya.': 'A world where creativity knows no bounds.',
   'Kratos\'un Norveç macerası.': 'Kratos\'s adventure in Norway.',
-  // Add translations for other games
+  
   'RPG klasiklerinden biri.': 'One of the RPG classics.',
   'Vahşi Batı\'da geçen epik bir hikaye.': 'An epic story set in the Wild West.',
   'Post-apokaliptik bir dünyada hayatta kalma.': 'Survival in a post-apocalyptic world.',
@@ -32,16 +32,16 @@ const descriptionTranslations = {
   'Dijital dünyada hayatta kalma.': 'Survival in a digital world.',
   'Fantastik savaşlar ve büyüler.': 'Fantastic battles and magic.',
   'Sanal dünyada hayat simülasyonu.': 'Life simulation in a virtual world.',
-  // New translations from the latest screenshots
+  
   'Zorlu düşmanlar ve geniş bir dünya.': 'Challenging enemies and a vast world.',
   'Makinelerin hükmettiği bir dünya.': 'A world ruled by machines.',
   'Unutulmuş Diyarlar\'da bir macera.': 'An adventure in the Forgotten Realms.',
   'Zeka zorlayan bulmacalar ve mizah.': 'Mind-bending puzzles and humor.',
   'Galaksiyi kurtarma görevi.': 'A mission to save the galaxy.',
-  'An epic story set in the Wild West.': 'An epic story set in the Wild West.' // Already in English
+  'An epic story set in the Wild West.': 'An epic story set in the Wild West.' 
 };
 
-// Function to translate descriptions if they match Turkish ones
+
 const translateDescription = (description) => {
   return descriptionTranslations[description] || description;
 };

@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     fetchGames();
     fetchUsers();
-    // Sayfa yüklendiğinde localStorage'dan kullanıcı bilgisini al
+    
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       setCurrentUser(JSON.parse(storedUser));
@@ -54,11 +54,11 @@ const HomePage = () => {
 
   const handleAddGame = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError(''); 
     setSuccess('');
     try {
-      // Ensure genres are split into an array
-      const genresArray = newGame.genres.split(',').map(genre => genre.trim()).filter(g => g); // Trim and remove empty strings
+      
+      const genresArray = newGame.genres.split(',').map(genre => genre.trim()).filter(g => g); 
       if (genresArray.length === 0) {
           setError('You must enter at least one genre.');
           return;
@@ -67,19 +67,15 @@ const HomePage = () => {
       const gameData = {
         name: newGame.name,
         genres: genresArray,
-        image: newGame.image, // Use the correct field name 'image'
-        // Add other optional fields from the form if they exist in newGame state
-        // developer: newGame.developer,
-        // releaseDate: newGame.releaseDate,
-        // price: newGame.price,
-        // description: newGame.description,
+        image: newGame.image, 
+        
       };
       
       await addGame(gameData);
       
-      setNewGame({ name: '', genres: '', image: '' }); // Reset form fields
+      setNewGame({ name: '', genres: '', image: '' }); 
       setSuccess('Game successfully added.');
-      fetchGames(); // Refresh the games list shown on the page
+      fetchGames(); 
     } catch (error) {
       console.error('Error adding game:', error);
       setError(error.response?.data?.message || 'An error occurred while adding the game.');
@@ -91,13 +87,13 @@ const HomePage = () => {
         setError('Please select a game to delete.');
         return;
     }
-    setError(''); // Clear previous errors
+    setError(''); 
     setSuccess('');
     try {
       await removeGame(selectedGame);
       setSuccess('Game successfully deleted.');
-      setSelectedGame(''); // Reset selection
-      fetchGames(); // Refresh game list
+      setSelectedGame(''); 
+      fetchGames(); 
     } catch (error) {
       console.error('Error removing game:', error);
       setError(error.response?.data?.message || 'An error occurred while deleting the game.');
@@ -109,12 +105,12 @@ const HomePage = () => {
        setError('Please select a game to perform the action.');
        return;
     }
-    setError(''); // Clear previous errors
+    setError(''); 
     setSuccess('');
     try {
       await toggleGameRating(selectedGame);
       setSuccess(`Rating/review status for the game was successfully changed.`);
-      fetchGames(); // Refresh game list to show updated status if displayed
+      fetchGames(); 
     } catch (error) {
       console.error('Error toggling rating:', error);
       setError(error.response?.data?.message || 'An error occurred while changing the rating status.');
@@ -135,13 +131,13 @@ const HomePage = () => {
   };
 
   const handleRemoveUser = async (userIdToRemove) => {
-    if (!userIdToRemove) return; // Basic check
+    if (!userIdToRemove) return; 
     setError('');
     setSuccess('');
     try {
       await removeUser(userIdToRemove);
       setSuccess('User successfully deleted.');
-      fetchUsers(); // Refresh user list
+      fetchUsers(); 
     } catch (error) {
       console.error('Error removing user:', error);
       setError(error.response?.data?.message || 'An error occurred while deleting the user.');

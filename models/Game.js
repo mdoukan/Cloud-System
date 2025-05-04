@@ -41,7 +41,7 @@ const gameSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  // Optional fields
+  
   releaseDate: {
     type: Date,
     required: false

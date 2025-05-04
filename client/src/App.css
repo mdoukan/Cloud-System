@@ -10,7 +10,7 @@
   padding-bottom: 2rem;
 }
 
-/* Game Card Styles */
+
 .game-card {
   transition: transform 0.2s ease-in-out;
 }
@@ -30,13 +30,13 @@
   margin-bottom: 0.5rem;
 }
 
-/* Comment Section Styles */
+
 .comment-section {
   max-height: 300px;
   overflow-y: auto;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
   .game-image {
     height: 150px;
@@ -55,7 +55,7 @@
   }
 }
 
-/* Loading and Error States */
+
 .loading-spinner {
   display: flex;
   justify-content: center;
@@ -69,14 +69,14 @@
   color: #dc3545;
 }
 
-/* Form Styles */
+
 .form-control:focus,
 .form-select:focus {
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Button Styles */
+
 .btn {
   transition: all 0.2s ease-in-out;
 }
@@ -85,7 +85,7 @@
   transform: translateY(-1px);
 }
 
-/* Card Styles */
+
 .card {
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-/* Animation Styles */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -110,7 +110,7 @@
   animation: fadeIn 0.3s ease-in;
 }
 
-/* Scrollbar Styles */
+
 ::-webkit-scrollbar {
   width: 8px;
 }

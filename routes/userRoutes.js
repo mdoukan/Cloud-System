@@ -204,33 +204,33 @@ router.post('/comment/:userId/:gameId', async (req, res) => {
       return res.status(404).json({ message: 'Kullanıcı veya oyun bulunamadı.' });
     }
 
-    if (!game.isRatingEnabled) { // Assuming commenting is tied to rating enabled status
+    if (!game.isRatingEnabled) { 
       console.log('Commenting disabled for this game.');
       return res.status(400).json({ message: 'Bu oyun için yorum yapma devre dışı.' });
     }
 
-    // Check if user has played enough
+    
     const ratingEntry = user.ratings.find(r => r.gameId.toString() === gameId);
     if (!ratingEntry || (ratingEntry.playTime || 0) < 1) {
       console.log('User has not played enough to comment.');
       return res.status(400).json({ message: 'Oyuna yorum yapmak için en az 1 saat oynamış olmalısınız.' });
     }
 
-    // Add comment to game's comment list
+    
     game.allComments.push({
       userId,
       username: user.name,
       comment: comment.trim(),
-      // playTime: ratingEntry.playTime // Optionally store the playtime when comment was made
-      createdAt: new Date() // Add timestamp for the comment
+      
+      createdAt: new Date() 
     });
     console.log('Added comment to game.allComments.');
 
-    // We are not modifying user document here, so no need to save user
+   
     await game.save();
 
     console.log('Comment saved successfully.');
-    // Return the newly added comment or a success message
+    
     res.status(201).json({ message: 'Yorum başarıyla eklendi.' }); 
   } catch (error) {
     console.error('Error in POST /comment/:userId/:gameId:', error);
@@ -238,10 +238,10 @@ router.post('/comment/:userId/:gameId', async (req, res) => {
   }
 });
 
-// Create test user
+
 router.post('/test', async (req, res) => {
   try {
-    // Check if test user already exists
+    
     let testUser = await User.findOne({ name: 'Test User' });
     
     if (!testUser) {
@@ -264,35 +264,35 @@ router.post('/test', async (req, res) => {
   }
 });
 
-// Get user by ID with populated game data
+
 router.get('/:id', async (req, res) => {
   console.log(`Fetching user profile for ID: ${req.params.id}`);
   try {
-    // Fetch user and populate game details within ratings
-    const user = await User.findById(req.params.id).populate('ratings.gameId', 'name image'); // Populate game name and image from Game model
+    
+    const user = await User.findById(req.params.id).populate('ratings.gameId', 'name image'); 
     
     if (!user) {
       console.log('User not found.');
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Calculate average rating (simple average based on user's ratings)
+    
     let totalRatingSum = 0;
     user.ratings.forEach(rating => {
         totalRatingSum += rating.rating;
     });
     const averageRating = user.ratings.length > 0 ? (totalRatingSum / user.ratings.length).toFixed(1) : 'N/A';
 
-    // Prepare played games list from populated ratings
+    
     const playedGames = user.ratings.map(r => ({
-      _id: r.gameId?._id, // Use populated game _id
-      name: r.gameId?.name || 'Bilinmeyen Oyun', // Use populated game name
-      image: r.gameId?.image, // Use populated game image
+      _id: r.gameId?._id, 
+      name: r.gameId?.name || 'Bilinmeyen Oyun', 
+      image: r.gameId?.image, 
       userPlayTime: r.playTime || 0,
       userRating: r.rating
-    })).sort((a, b) => b.userPlayTime - a.userPlayTime); // Sort by play time desc
+    })).sort((a, b) => b.userPlayTime - a.userPlayTime);
 
-    // Get all games that have comments from this user
+    
     const gamesWithComments = await Game.find({ 'allComments.userId': user._id });
     const userComments = gamesWithComments.map(game => {
       const comments = game.allComments.filter(comment => comment.userId.toString() === user._id.toString());
@@ -305,11 +305,10 @@ router.get('/:id', async (req, res) => {
       }));
     }).flat();
 
-    // Determine most played game from the prepared list
     const mostPlayedGameInfo = playedGames.length > 0 ? playedGames[0] : null;
     const mostPlayedGameName = mostPlayedGameInfo ? mostPlayedGameInfo.name : 'Yok';
 
-    // Keep total play time calculation (sum of all play times in ratings)
+    
     const totalPlayTime = user.ratings.reduce((sum, r) => sum + (r.playTime || 0), 0);
 
     console.log('Successfully fetched and processed user data.');
@@ -325,7 +324,7 @@ router.get('/:id', async (req, res) => {
 
   } catch (error) {
     console.error(`Error in GET /users/${req.params.id}:`, error);
-    // Handle potential CastError for userId
+    
     if (error.name === 'CastError') {
         return res.status(400).json({ message: 'Invalid user ID format' });
     }

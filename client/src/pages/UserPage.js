@@ -4,25 +4,25 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getUserById } from '../services/api';
 
-// Final CSS refinements based on latest screenshot
+
 const pageStyle = {
-  backgroundColor: '#1b2838', // Steam dark blue-grey
-  color: '#c6d4df',       // Main light text color
+  backgroundColor: '#1b2838', 
+  color: '#c6d4df',       
   minHeight: '100vh',
   paddingTop: '1.5rem',
   paddingBottom: '1.5rem',
 };
 
-const darkCardStyle = { // Renamed for clarity
-  backgroundColor: '#314155', // Standard dark card background
-  borderColor: '#2a3f5a',   // Desaturated border color
-  color: '#c6d4df',       // Match page text color
+const darkCardStyle = { 
+  backgroundColor: '#314155', 
+  borderColor: '#2a3f5a',   
+  color: '#c6d4df',       
   marginBottom: '1.5rem',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.1)', // Slightly softer shadow
+  boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
 };
 
 const cardHeaderStyle = {
-  backgroundColor: '#2a3f5a', // Header slightly darker than card body
+  backgroundColor: '#2a3f5a', 
   borderBottom: '1px solid #2a3f5a',
   color: '#ffffff',
   fontWeight: 'bold',
@@ -30,21 +30,21 @@ const cardHeaderStyle = {
 };
 
 const listGroupItemStyle = {
-  backgroundColor: '#314155', // Match dark card background
-  borderColor: '#2a3f5a',   // Match dark card border
+  backgroundColor: '#314155', 
+  borderColor: '#2a3f5a',   
   color: '#c6d4df',
   padding: '0.75rem 1rem',
-  borderTop: '1px solid #2a3f5a', // Ensure consistent top border
+  borderTop: '1px solid #2a3f5a', 
 };
 
 const mutedTextStyle = {
-  color: '#8f98a0', // Muted text color
+  color: '#8f98a0', 
 };
 
-// Styles for dark table (ADDING DEFINITIONS)
+
 const darkTableHeaderStyle = {
-  color: '#ffffff', // White header text
-  backgroundColor: '#2a3f5a', // Match card header background
+  color: '#ffffff', 
+  backgroundColor: '#2a3f5a', 
   borderBottom: '2px solid #2a3f5a', 
   borderTop: 'none',
   padding: '0.6rem 0.75rem',
@@ -54,15 +54,15 @@ const darkTableHeaderStyle = {
 
 const darkTableCellStyle = {
   verticalAlign: 'middle',
-  backgroundColor: '#314155', // Match dark card background
-  borderColor: '#2a3f5a', // Match dark card border
-  color: '#c6d4df',       // Light text color
+  backgroundColor: '#314155', 
+  borderColor: '#2a3f5a', 
+  color: '#c6d4df',       
   padding: '0.6rem 0.75rem',
   borderTop: '1px solid #2a3f5a',
 };
 
 const linkButtonStyle = {
-  color: '#66c0f4', // Steam accent blue
+  color: '#66c0f4', 
   textDecoration: 'none',
   padding: 0,
   background: 'none',
@@ -95,12 +95,12 @@ const levelBadgeStyle = {
   textAlign: 'center',
 };
 
-// Helper function to format date safely
+
 const formatDate = (dateString) => {
   if (!dateString) return '-';
   const date = new Date(dateString);
-  if (isNaN(date.getTime())) { // Check if date is valid
-    return '-'; // Return placeholder if invalid
+  if (isNaN(date.getTime())) { 
+    return '-'; 
   }
   return date.toLocaleDateString('tr-TR');
 };
@@ -281,7 +281,7 @@ const UserPage = () => {
                    </tbody>
                  </Table>
                ) : (
-                 // Fallback message with dark background
+                 
                  <div style={{ padding: '1rem', backgroundColor: darkCardStyle.backgroundColor, color: darkCardStyle.color }}> 
                    No games played or rated yet.
                  </div>

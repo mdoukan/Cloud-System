@@ -3,22 +3,22 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import './App.css';
 
-// Components
+
 import Footer from './components/Footer';
 
-// Pages
+
 import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 import GamesPage from './pages/GamesPage';
 import GameDetailPage from './pages/GameDetailPage';
 
-// Import API functions for login/logout if needed
+
 import { getUserById } from './services/api';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Check localStorage for logged in user on mount and when localStorage changes
+  
   useEffect(() => {
     const checkUser = () => {
         const storedUser = localStorage.getItem('currentUser');
@@ -27,7 +27,7 @@ function App() {
                 setCurrentUser(JSON.parse(storedUser));
             } catch (e) {
                 console.error("Error parsing user from localStorage", e);
-                localStorage.removeItem('currentUser'); // Clear invalid data
+                localStorage.removeItem('currentUser'); 
                 setCurrentUser(null);
             }
         } else {
@@ -37,14 +37,14 @@ function App() {
 
     checkUser();
 
-    // Listen for changes in localStorage (e.g., login/logout in other tabs)
+    
     window.addEventListener('storage', checkUser);
 
-    // Listen for custom login/logout events triggered by HomePage/GameDetailPage
+    
     const handleAuthChange = () => checkUser();
     window.addEventListener('authChange', handleAuthChange);
 
-    // Cleanup listeners on unmount
+    
     return () => {
         window.removeEventListener('storage', checkUser);
         window.removeEventListener('authChange', handleAuthChange);
@@ -54,9 +54,7 @@ function App() {
   const handleLogout = () => {
       localStorage.removeItem('currentUser');
       setCurrentUser(null);
-      // Optionally navigate to home page
-      // navigate('/'); // Requires importing useNavigate
-      // Trigger custom event for other components if needed
+      
       window.dispatchEvent(new Event('authChange')); 
   };
 

@@ -5,12 +5,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getGameById, rateGame, playGame, commentOnGame } from '../services/api';
 
-// Translation mapping for existing Turkish descriptions
+
 const descriptionTranslations = {
   'Yeraltı dünyasından kaçış.': 'Escape from the underworld.',
   'Yaratıcılığın sınır tanımadığı dünya.': 'A world where creativity knows no bounds.',
   'Kratos\'un Norveç macerası.': 'Kratos\'s adventure in Norway.',
-  // Add translations for other games
+  
   'RPG klasiklerinden biri.': 'One of the RPG classics.',
   'Vahşi Batı\'da geçen epik bir hikaye.': 'An epic story set in the Wild West.',
   'Post-apokaliptik bir dünyada hayatta kalma.': 'Survival in a post-apocalyptic world.',
@@ -33,42 +33,42 @@ const descriptionTranslations = {
   'Dijital dünyada hayatta kalma.': 'Survival in a digital world.',
   'Fantastik savaşlar ve büyüler.': 'Fantastic battles and magic.',
   'Sanal dünyada hayat simülasyonu.': 'Life simulation in a virtual world.',
-  // New translations from the latest screenshots
+  
   'Zorlu düşmanlar ve geniş bir dünya.': 'Challenging enemies and a vast world.',
   'Makinelerin hükmettiği bir dünya.': 'A world ruled by machines.',
   'Unutulmuş Diyarlar\'da bir macera.': 'An adventure in the Forgotten Realms.',
   'Zeka zorlayan bulmacalar ve mizah.': 'Mind-bending puzzles and humor.',
   'Galaksiyi kurtarma görevi.': 'A mission to save the galaxy.',
-  'An epic story set in the Wild West.': 'An epic story set in the Wild West.' // Already in English
+  'An epic story set in the Wild West.': 'An epic story set in the Wild West.' 
 };
 
-// Function to translate descriptions if they match Turkish ones
+
 const translateDescription = (description) => {
   return descriptionTranslations[description] || description;
 };
 
-// Removed the static allGames list
+
 
 const GameDetailPage = () => {
-  const { gameId } = useParams(); // Use the ID from URL (this should be the MongoDB _id now)
+  const { gameId } = useParams(); 
   const navigate = useNavigate();
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pageError, setPageError] = useState(null);
 
-  // Interaction States
+  
   const [playTime, setPlayTime] = useState('');
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]); // Initialize comments state
+  const [comments, setComments] = useState([]); 
   const [interactionLoading, setInteractionLoading] = useState(false);
   const [interactionError, setInteractionError] = useState('');
   const [interactionSuccess, setInteractionSuccess] = useState('');
 
-  // Current User State
+  
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Fetch Game Data and Comments from Backend
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
@@ -81,7 +81,7 @@ const GameDetailPage = () => {
       try {
         const gameData = await getGameById(gameId);
         setGame(gameData);
-        // Set comments from the fetched game data
+        
         setComments(gameData.allComments || []); 
       } catch (error) {
         console.error('Error fetching game details:', error);
@@ -95,7 +95,7 @@ const GameDetailPage = () => {
     fetchGameDetails();
   }, [gameId]);
 
-  // --- Interaction Handlers --- 
+  
 
   const handleInteraction = async (actionType, data) => {
     console.log('Current User:', currentUser);
@@ -147,7 +147,7 @@ const GameDetailPage = () => {
           successMessage = 'Your comment has been submitted!';
           setComment('');
           
-          // Refresh game details to show the new comment
+          
           const updatedGameData = await getGameById(gameId);
           setGame(updatedGameData);
           setComments(updatedGameData.allComments || []);
@@ -166,7 +166,7 @@ const GameDetailPage = () => {
     }
   };
 
-  // --- Render Logic --- (Loading, Error, Game Details, Interactions, Comments)
+  
 
   if (loading) {
     return <Container className="mt-4 text-center"><h2>Loading...</h2></Container>;
@@ -177,7 +177,7 @@ const GameDetailPage = () => {
   }
 
   if (!game) {
-    // This case might be redundant if pageError covers game not found
+    
     return <Container className="mt-4 text-center"><h2>Game Not Found</h2></Container>;
   }
 
@@ -343,7 +343,7 @@ const GameDetailPage = () => {
         <Col>
           <h3>Comments</h3>
           {/* Render comments from state */}
-          {comments.length > 0 ? comments.slice().reverse().map((c, index) => ( // Use slice().reverse() to show newest first without mutating state
+          {comments.length > 0 ? comments.slice().reverse().map((c, index) => ( 
             <Card key={c._id || `comment-${index}`} className="mb-3 shadow-sm"> {/* Use _id if available from backend, otherwise index */}
               <Card.Body>
                  <div className="d-flex justify-content-between align-items-center mb-2">

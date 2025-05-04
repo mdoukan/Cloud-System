@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Game = require('./models/Game');
 
-// Game descriptions in English
+
 const gameTranslations = {
   'Yeraltı dünyasından kaçış.': 'Escape from the underworld.',
   'Yaratıcılığın sınır tanımadığı dünya.': 'A world where creativity knows no bounds.',
   'Kratos\'un Norveç macerası.': 'Kratos\'s adventure in Norway.',
-  // Add translations for other games
+  
   'RPG klasiklerinden biri.': 'One of the RPG classics.',
   'Vahşi Batı\'da geçen epik bir hikaye.': 'An epic story set in the Wild West.',
   'Post-apokaliptik bir dünyada hayatta kalma.': 'Survival in a post-apocalyptic world.',
@@ -29,7 +29,7 @@ const gameTranslations = {
   'Dijital dünyada hayatta kalma.': 'Survival in a digital world.',
   'Fantastik savaşlar ve büyüler.': 'Fantastic battles and magic.',
   'Sanal dünyada hayat simülasyonu.': 'Life simulation in a virtual world.',
-  // New translations from the latest screenshots
+  
   'Zorlu düşmanlar ve geniş bir dünya.': 'Challenging enemies and a vast world.',
   'Makinelerin hükmettiği bir dünya.': 'A world ruled by machines.',
   'Unutulmuş Diyarlar\'da bir macera.': 'An adventure in the Forgotten Realms.',
@@ -40,15 +40,15 @@ const gameTranslations = {
 
 async function updateGameDescriptions() {
   try {
-    // Connect to MongoDB
+    
     await mongoose.connect('mongodb://localhost:27017/gameDistribution');
     console.log('Connected to MongoDB');
     
-    // Get all games
+    
     const games = await Game.find();
     console.log(`Found ${games.length} games`);
     
-    // Update each game description
+    
     for (const game of games) {
       const turkishDescription = game.description;
       
@@ -69,11 +69,11 @@ async function updateGameDescriptions() {
   } catch (error) {
     console.error('Error updating game descriptions:', error);
   } finally {
-    // Close MongoDB connection
+   
     await mongoose.disconnect();
     console.log('Disconnected from MongoDB');
   }
 }
 
-// Run the update function
+
 updateGameDescriptions(); 

@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-// ✅ Ortam değişkeninden backend URL'sini al veya aynı domain kullan
-const API_URL = '/api'; // varsayılan olarak aynı host üzerinde çalıştığını varsayıyoruz
+const API_URL = '/api'; 
 
-// 🚫 Caching'i önlemek için timestamp ekleyici
 const getTimestamp = () => `_t=${new Date().getTime()}`;
 
-// 🎮 Game API'leri
 export const getAllGames = async () => {
   try {
     const response = await axios.get(`${API_URL}/games?${getTimestamp()}`);
@@ -57,7 +54,6 @@ export const toggleGameRating = async (id) => {
   }
 };
 
-// 👤 User API'leri
 export const getAllUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/users?${getTimestamp()}`);
